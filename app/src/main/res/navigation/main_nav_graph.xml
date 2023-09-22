@@ -10,7 +10,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.bookshelf_app.feat_auth.presentation.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -19,7 +19,7 @@
         android:id="@+id/mainBookListFragment"
         android:name="com.example.bookshelf_app.feat_book_list.presentation.fragments.MainBookListFragment"
         android:label="fragment_main_book_list"
-        tools:layout="@layout/fragment_main_book_list" >
+        tools:layout="@layout/fragment_main_book_list">
         <action
             android:id="@+id/action_mainBookListFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment"
