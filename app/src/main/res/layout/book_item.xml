@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/book_item"
+    android:layout_width="@dimen/_120sdp"
+    android:layout_height="@dimen/_240sdp"
+    android:layout_margin="@dimen/_4sdp"
+    android:background="@drawable/portrait_bg_event"
+    android:paddingBottom="@dimen/_4sdp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/book_item_iv"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_160sdp"
+        android:elevation="@dimen/_16sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sample_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+    <ImageView
+        android:id="@+id/book_item_iv_fav"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/_20sdp"
+        android:src="@drawable/iconmonstr_favorite_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/book_item_tv_title"
+        style="@style/_12spTextViewTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/lorem5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_item_iv" />
+
+    <LinearLayout
+        android:id="@+id/book_item_ll_hits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_item_tv_title">
+
+        <TextView
+            android:id="@+id/book_item_tv_heading_hits"
+            style="@style/DefaultTextViewTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hits_colon"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/book_item_tv_hits"
+            style="@style/DefaultTextViewTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sample_hits" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

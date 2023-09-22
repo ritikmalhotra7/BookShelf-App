@@ -6,6 +6,6 @@ import com.example.bookshelf_app.feat_book_list.domain.repositories.BookReposito
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetBooksUseCase @Inject constructor(private val repository:BookRepository) {
+class GetBooksUseCase @Inject constructor(private val repository: BookRepository) {
     suspend operator fun invoke(): Flow<ResponseState<List<BookModel>>> = repository.getBooks()
 }

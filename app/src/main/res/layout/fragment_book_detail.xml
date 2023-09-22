@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_book_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/_16sdp"
+    android:scrollbars="none"
     tools:context=".feat_book_list.presentation.fragments.BookDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/_16sdp">
 
-</FrameLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_book_detail_tv_book_details"
+            style="@style/HeadingTopBarTextViewTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:text="@string/book_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/fragment_book_detail_iv_back"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/color444444"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_book_detail_tv_book_details"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fragment_book_detail_tv_book_details" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@color/color444444"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_tv_book_details" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/fragment_book_detail_iv_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:elevation="@dimen/_4sdp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sample_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_tv_book_details" />
+
+
+        <ImageView
+            android:id="@+id/fragment_book_detail_iv_book_bg"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/color7C9D96"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_book_detail_iv_book"
+            app:layout_constraintEnd_toEndOf="@id/fragment_book_detail_iv_book"
+            app:layout_constraintStart_toStartOf="@id/fragment_book_detail_iv_book"
+            app:layout_constraintTop_toTopOf="@id/fragment_book_detail_iv_book" />
+
+        <ImageView
+            android:id="@+id/fragment_book_detail_iv_fav"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:elevation="@dimen/_20sdp"
+            android:src="@drawable/iconmonstr_favorite_5"
+            app:layout_constraintEnd_toEndOf="@id/fragment_book_detail_iv_book_bg"
+            app:layout_constraintTop_toTopOf="@id/fragment_book_detail_iv_book_bg"
+            app:tint="@color/white" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_book_detail_tv_title"
+            style="@style/HeadingTextViewTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/lorem5"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_iv_book" />
+
+        <LinearLayout
+            android:id="@+id/fragment_book_detail_ll_hits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_tv_title">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_heading_hits"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hits_colon"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_hits"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/sample_hits" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fragment_book_detail_ll_alias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_ll_hits">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_heading_alias"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alias_colon"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_alias"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/alias" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fragment_book_detail_ll_updated_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_ll_alias">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_heading_update_on"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/updated_on"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragment_book_tv_updated_on"
+                style="@style/_12spTextViewTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/sample_updated" />
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_book_detail_tv_heading_summary"
+            style="@style/_12spTextViewTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@string/summary_colon"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_ll_updated_on" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fragment_book_detail_tv_summary"
+            style="@style/_12spTextViewTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_300"
+            app:layout_constraintTop_toBottomOf="@id/fragment_book_detail_tv_heading_summary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

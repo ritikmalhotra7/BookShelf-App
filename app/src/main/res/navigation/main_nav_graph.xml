@@ -12,9 +12,6 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_mainBookListFragment"
-            app:destination="@id/mainBookListFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
     </fragment>
@@ -25,17 +22,14 @@
         tools:layout="@layout/fragment_main_book_list" >
         <action
             android:id="@+id/action_mainBookListFragment_to_bookDetailFragment"
-            app:destination="@id/bookDetailFragment" />
+            app:destination="@id/bookDetailFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.bookshelf_app.feat_auth.presentation.fragments.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_mainBookListFragment"
-            app:destination="@id/mainBookListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.example.bookshelf_app.feat_book_list.presentation.fragments.BookDetailFragment"

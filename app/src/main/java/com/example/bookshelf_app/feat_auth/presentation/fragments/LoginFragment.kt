@@ -1,7 +1,6 @@
 package com.example.bookshelf_app.feat_auth.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bookshelf_app.R
-import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.core.presentation.activities.MainActivity
 import com.example.bookshelf_app.core.utils.UserProvider
 import com.example.bookshelf_app.databinding.FragmentLoginBinding
+import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.presentation.viewmodels.LoginViewModel
-import com.example.bookshelf_app.feat_auth.utils.Utils
+import com.example.bookshelf_app.feat_auth.utils.AuthUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -29,9 +27,20 @@ class LoginFragment : Fragment() {
     private val binding by lazy {
         _binding!!
     }
-    private val viewModel:LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     private var users: List<UserModel> = listOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // If user is already logged in then, user must go directly to main book screen
+        lifecycleScope.launch {
+            if (UserProvider.getLoggedInUser(requireContext()) != null) {
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.mainBookListFragment)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +62,7 @@ class LoginFragment : Fragment() {
             fragmentLoginBtLogin.setOnClickListener {
                 val userName = fragmentLoginTietUsername.text.toString()
                 val password = fragmentLoginTietPassword.text.toString()
-                val isPasswordValid = Utils.validatePassword(password)
+                val isPasswordValid = AuthUtils.validatePassword(password)
                 if (userName.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
@@ -68,12 +77,13 @@ class LoginFragment : Fragment() {
                     ).show()
                 } else if (isPasswordValid) {
                     lifecycleScope.launch {
-                        val user = UserModel(null,userName, password)
-                        checkDoesUserExist(user)?.let{userFromDb ->
-                            if(UserProvider.saveCurrentLoggedUser(requireContext(),userFromDb)){
-                                findNavController().navigate(R.id.action_loginFragment_to_mainBookListFragment)
+                        val user = UserModel(null, userName, password)
+                        checkDoesUserExist(user)?.let { userFromDb ->
+                            if (UserProvider.saveCurrentLoggedUser(requireContext(), userFromDb)) {
+                                findNavController().popBackStack()
+                                findNavController().navigate(R.id.mainBookListFragment)
                             }
-                        }?: Snackbar.make(
+                        } ?: Snackbar.make(
                             binding.root.rootView,
                             "Wrong credentials",
                             Snackbar.LENGTH_SHORT
@@ -89,7 +99,7 @@ class LoginFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            viewModel.mLoginState.collectLatest {state->
+            viewModel.mLoginState.collectLatest { state ->
                 val users = state.users
                 val containsError: String? = state.containsError
                 val isLoading: Boolean? = state.isLoading
@@ -107,9 +117,9 @@ class LoginFragment : Fragment() {
 
     private fun checkDoesUserExist(userModel: UserModel): UserModel? {
         val list = users.filter { it.userName == userModel.userName }
-        if(list.isNotEmpty()){
+        if (list.isNotEmpty()) {
             val user = list[0]
-            if(user.password == userModel.password) return list[0]
+            if (user.password == userModel.password) return list[0]
         }
         return null
     }

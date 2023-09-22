@@ -3,8 +3,8 @@ package com.example.bookshelf_app.feat_auth.data.repositories
 import com.example.bookshelf_app.core.data.local.UserDao
 import com.example.bookshelf_app.core.data.local.entities.UserEntity
 import com.example.bookshelf_app.core.data.mappers.toUserModel
-import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.core.utils.ResponseState
+import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.domain.repositories.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

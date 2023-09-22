@@ -1,6 +1,7 @@
 package com.example.bookshelf_app.feat_auth.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bookshelf_app.R
-import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.core.presentation.activities.MainActivity
 import com.example.bookshelf_app.databinding.FragmentSignUpBinding
+import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.presentation.viewmodels.SignUpViewModel
-import com.example.bookshelf_app.feat_auth.utils.Utils
+import com.example.bookshelf_app.feat_auth.utils.AuthUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -43,7 +44,11 @@ class SignUpFragment : Fragment() {
 
     private fun setViews() {
         val spinnerAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, Utils.countryList)
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                AuthUtils.countryList
+            )
         viewModel.getAllUserList()
         binding.apply {
             fragmentSignUpSpCountry.adapter = spinnerAdapter
@@ -51,7 +56,7 @@ class SignUpFragment : Fragment() {
                 val userName = fragmentSignUpTietUsername.text.toString()
                 val password = fragmentSignUpTietPassword.text.toString()
                 val country = fragmentSignUpSpCountry.selectedItem.toString()
-                val isPasswordValid = Utils.validatePassword(password)
+                val isPasswordValid = AuthUtils.validatePassword(password)
                 if (userName.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
@@ -67,8 +72,12 @@ class SignUpFragment : Fragment() {
                 } else if (isPasswordValid) {
                     lifecycleScope.launch {
                         val user = UserModel(null, userName, password, country)
-                        if(!users.any { it.userName == userName }) viewModel.insertUserList(user)
-                        else Toast.makeText(requireContext(),"Username already taken",Toast.LENGTH_SHORT).show()
+                        if (!users.any { it.userName == userName }) viewModel.insertUserList(user)
+                        else Toast.makeText(
+                            requireContext(),
+                            "Username already taken",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 } else {
                     Snackbar.make(
@@ -82,7 +91,7 @@ class SignUpFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModel.mSignUpState.collectLatest { state ->
                 val users = state.users
                 val insertStatus: Boolean? = state.insertStatus
@@ -106,7 +115,7 @@ class SignUpFragment : Fragment() {
                         ).show()
                     }
                 }
-                users?.let{
+                users.let {
                     this@SignUpFragment.users = users
                 }
             }

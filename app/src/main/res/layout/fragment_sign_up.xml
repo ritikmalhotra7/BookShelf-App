@@ -8,13 +8,30 @@
     android:padding="@dimen/_16sdp"
     tools:context=".feat_auth.presentation.fragments.LoginFragment">
 
+    <TextView
+        android:id="@+id/fragment_sign_up_tv_signup_screen"
+        style="@style/HeadingTopBarTextViewTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/signup_screen"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:background="@color/color444444"
+        app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_tv_signup_screen" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/fragment_sign_up_tv_username"
         style="@style/HeadingTextViewTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
         android:text="@string/username"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_tv_signup_screen" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fragment_sign_up_til_username"
@@ -27,7 +44,10 @@
             android:id="@+id/fragment_sign_up_tiet_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_username" />
+            android:hint="@string/enter_username"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="@dimen/_12sdp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -43,6 +63,7 @@
         android:id="@+id/fragment_sign_up_til_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
         app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_tv_password">
 
@@ -50,23 +71,27 @@
             android:id="@+id/fragment_sign_up_tiet_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_password" />
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:textSize="@dimen/_12sdp" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <Spinner
         android:id="@+id/fragment_sign_up_sp_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_til_password"
+        android:layout_marginVertical="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginVertical="@dimen/_8sdp"/>
+        app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_til_password" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_sign_up_bt_sign_up"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/_256sdp"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:minWidth="@dimen/_256sdp"
+        android:minHeight="@dimen/_40sdp"
         android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="@dimen/_12sdp"
@@ -80,16 +105,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintTop_toBottomOf="@id/fragment_sign_up_bt_sign_up">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/fragment_sign_up_tv_already_a_user"
-            style="@style/DefaultTextViewtheme"
+            style="@style/DefaultTextViewTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -97,7 +122,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/fragment_sign_up_tv_login"
-            style="@style/DefaultTextViewtheme"
+            style="@style/DefaultTextViewTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_4sdp"

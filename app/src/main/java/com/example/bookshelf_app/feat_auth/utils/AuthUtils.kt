@@ -4,8 +4,8 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-object Utils {
-     val countryList = arrayOf(
+object AuthUtils {
+    val countryList = arrayOf(
         "Afghanistan",
         "Albania",
         "Algeria",
@@ -249,6 +249,7 @@ object Utils {
         "Zambia",
         "Zimbabwe"
     )
+
     fun validatePassword(password: String?): Boolean {
         /*^               # start-of-string
         (?=.*\d)          # a digit must occur at least once

@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_main_book_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/_16sdp"
     tools:context=".feat_book_list.presentation.fragments.MainBookListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/fragment_main_book_list_tv_book_shelf"
+        style="@style/HeadingTopBarTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
+        android:text="@string/bookshelf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/fragment_main_book_list_bt_logout"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/baseline_logout_24"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_main_book_list_tv_book_shelf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_main_book_list_tv_book_shelf"
+        app:tint="@color/color444444" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:background="@color/color444444"
+        app:layout_constraintTop_toBottomOf="@id/fragment_main_book_list_tv_book_shelf" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/fragment_main_book_list_mbtg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_main_book_list_tv_book_shelf"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/fragment_main_book_list_mbtg_title"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="@dimen/_14sdp" />
+
+        <Button
+            android:id="@+id/fragment_main_book_list_mbtg_hits"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hits"
+            android:textSize="@dimen/_14sdp" />
+
+        <Button
+            android:id="@+id/fragment_main_book_list_mbtg_fav"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/favourites"
+            android:textSize="@dimen/_14sdp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/fragment_book_detail_tv_ascending"
+        style="@style/_12spTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:text="@string/ascending"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/fragment_main_book_list_mbtg"
+        app:layout_constraintTop_toBottomOf="@id/fragment_main_book_list_mbtg" />
+
+    <Switch
+        android:id="@+id/fragment_main_book_list_swt_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_book_detail_tv_ascending"
+        app:layout_constraintStart_toEndOf="@id/fragment_book_detail_tv_ascending"
+        app:layout_constraintTop_toTopOf="@id/fragment_book_detail_tv_ascending"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_main_book_list_rv_books"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_main_book_list_swt_order"
+        app:spanCount="2"
+        tools:layout_editor_absoluteX="10dp"
+        tools:listitem="@layout/book_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>
