@@ -1,7 +1,6 @@
 package com.example.bookshelf_app.feat_auth.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bookshelf_app.R
 import com.example.bookshelf_app.core.presentation.activities.MainActivity
+import com.example.bookshelf_app.core.utils.UserProvider
 import com.example.bookshelf_app.databinding.FragmentSignUpBinding
 import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.presentation.viewmodels.SignUpViewModel
@@ -30,6 +30,8 @@ class SignUpFragment : Fragment() {
     }
     private val viewModel: SignUpViewModel by viewModels()
     private var users: List<UserModel> = listOf()
+    private var userName: String = ""
+    private var password: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +55,8 @@ class SignUpFragment : Fragment() {
         binding.apply {
             fragmentSignUpSpCountry.adapter = spinnerAdapter
             fragmentSignUpBtSignUp.setOnClickListener {
-                val userName = fragmentSignUpTietUsername.text.toString()
-                val password = fragmentSignUpTietPassword.text.toString()
+                userName = fragmentSignUpTietUsername.text.toString()
+                password = fragmentSignUpTietPassword.text.toString()
                 val country = fragmentSignUpSpCountry.selectedItem.toString()
                 val isPasswordValid = AuthUtils.validatePassword(password)
                 if (userName.isEmpty()) {
@@ -72,7 +74,7 @@ class SignUpFragment : Fragment() {
                 } else if (isPasswordValid) {
                     lifecycleScope.launch {
                         val user = UserModel(null, userName, password, country)
-                        if (!users.any { it.userName == userName }) viewModel.insertUserList(user)
+                        if (!users.any { it.userName == userName }) viewModel.insertUser(user)
                         else Toast.makeText(
                             requireContext(),
                             "Username already taken",
@@ -97,7 +99,9 @@ class SignUpFragment : Fragment() {
                 val insertStatus: Boolean? = state.insertStatus
                 val containsError: String? = state.containsError
                 val isLoading: Boolean? = state.isLoading
-
+                users.let {
+                    this@SignUpFragment.users = users
+                }
                 isLoading?.let {
                     if (it) showProgress()
                     else hideProgress()
@@ -107,19 +111,29 @@ class SignUpFragment : Fragment() {
                 }
                 insertStatus?.let { status ->
                     if (status) {
-                        findNavController().popBackStack()
-                        Snackbar.make(
-                            requireView(),
-                            getString(R.string.created_a_user_now_you_can_login_from_those_credentials),
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                        lifecycleScope.launch {
+                            val user = UserModel(null, userName , password)
+                            if (UserProvider.saveCurrentLoggedUser(requireContext(), user)) {
+                                while (findNavController().currentBackStack.value.isNotEmpty()) {
+                                    findNavController().popBackStack()
+                                }
+                                findNavController().navigate(R.id.mainBookListFragment)
+                            }
+                        }
+                        
                     }
-                }
-                users.let {
-                    this@SignUpFragment.users = users
                 }
             }
         }
+    }
+
+    private fun checkDoesUserExist(userModel: UserModel): UserModel? {
+        val list = users.filter { it.userName == userModel.userName }
+        if (list.isNotEmpty()) {
+            val user = list[0]
+            if (user.password == userModel.password) return list[0]
+        }
+        return null
     }
 
     private fun showProgress() = (requireActivity() as MainActivity).showProgress()

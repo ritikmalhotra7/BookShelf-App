@@ -42,10 +42,14 @@ class MainBookListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBookListBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         showProgress()
         setViews()
         hideProgress()
-        return binding.root
     }
 
     private fun setViews() {
@@ -57,7 +61,9 @@ class MainBookListFragment : Fragment() {
                         requireContext(), getString(R.string.logged_out), Toast.LENGTH_SHORT
                     ).show()
                     UserProvider.removeCurrentLoggedInUser(requireContext())
-                    findNavController().popBackStack(R.id.loginFragment, true)
+                    while (findNavController().currentBackStack.value.isNotEmpty()){
+                        findNavController().popBackStack()
+                    }
                     findNavController().navigate(R.id.loginFragment)
                 }
             }

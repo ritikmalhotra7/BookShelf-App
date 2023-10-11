@@ -67,7 +67,7 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun insertUserList(user: UserModel) = viewModelScope.launch(Dispatchers.IO) {
+    fun insertUser(user: UserModel) = viewModelScope.launch(Dispatchers.IO) {
         insertUsers(user).collectLatest { result ->
             when (result) {
                 is ResponseState.Success -> {
