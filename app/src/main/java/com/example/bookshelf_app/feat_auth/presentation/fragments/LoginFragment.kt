@@ -15,7 +15,6 @@ import com.example.bookshelf_app.core.utils.UserProvider
 import com.example.bookshelf_app.databinding.FragmentLoginBinding
 import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.presentation.viewmodels.LoginViewModel
-import com.example.bookshelf_app.feat_auth.utils.AuthUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

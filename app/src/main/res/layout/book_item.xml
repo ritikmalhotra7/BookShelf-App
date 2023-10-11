@@ -10,8 +10,9 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/book_item_iv"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/_128sdp"
         android:src="@drawable/sample_image"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"

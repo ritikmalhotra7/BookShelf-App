@@ -32,8 +32,8 @@ object CoreModule {
 
     @Provides
     @Singleton
-    fun provideApi(@ApplicationContext context: Context): BookApi {
-        var httpClient = OkHttpClient.Builder();
+    fun provideApi(): BookApi {
+        var httpClient = OkHttpClient.Builder()
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(httpClient.build())

@@ -1,6 +1,5 @@
 package com.example.bookshelf_app.feat_book_list.presentation.fragments
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -71,8 +70,7 @@ class MainBookListFragment : Fragment() {
         binding.apply {
             fragmentMainBookListMbtg.addOnButtonCheckedListener { group, checkedId, isChecked ->
                 if (isChecked) {
-                    val selectedButton = requireActivity().findViewById<MaterialButton>(checkedId)
-                    when (selectedButton) {
+                    when (requireActivity().findViewById<MaterialButton>(checkedId)) {
                         fragmentMainBookListMbtgTitle -> {
                             if (isAscending) bookAdapter.setList(books.sortedBy { it.title })
                             else bookAdapter.setList(books.sortedByDescending { it.title })
