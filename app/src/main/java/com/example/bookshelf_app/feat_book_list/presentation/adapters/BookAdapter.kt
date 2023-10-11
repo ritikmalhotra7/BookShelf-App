@@ -75,7 +75,7 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
                                     R.color.color01939A
                                 )
                             )
-                        ) bookItemIvFav.imageTintList = ColorStateList.valueOf(Color.WHITE)
+                        ) bookItemIvFav.imageTintList = ColorStateList.valueOf(root.context.getColor(R.color._878787))
                         else bookItemIvFav.imageTintList =
                             ColorStateList.valueOf(root.context.getColor(R.color.color01939A))
                     }

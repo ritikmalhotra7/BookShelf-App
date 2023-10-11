@@ -17,6 +17,7 @@ import com.example.bookshelf_app.databinding.FragmentSignUpBinding
 import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_auth.presentation.viewmodels.SignUpViewModel
 import com.example.bookshelf_app.feat_auth.utils.AuthUtils
+import com.example.bookshelf_app.feat_auth.utils.AuthUtils.validatePassword
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -57,8 +58,8 @@ class SignUpFragment : Fragment() {
             fragmentSignUpBtSignUp.setOnClickListener {
                 userName = fragmentSignUpTietUsername.text.toString()
                 password = fragmentSignUpTietPassword.text.toString()
+                val validatePassword = validatePassword(password)
                 val country = fragmentSignUpSpCountry.selectedItem.toString()
-                val isPasswordValid = AuthUtils.validatePassword(password)
                 if (userName.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
@@ -71,7 +72,13 @@ class SignUpFragment : Fragment() {
                         getString(R.string.pass_must_not_be_empty),
                         Toast.LENGTH_SHORT
                     ).show()
-                } else if (isPasswordValid) {
+                } else if (validatePassword != null) {
+                    Toast.makeText(
+                        requireContext(),
+                        validatePassword,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else{
                     lifecycleScope.launch {
                         val user = UserModel(null, userName, password, country)
                         if (!users.any { it.userName == userName }) viewModel.insertUser(user)
@@ -81,12 +88,6 @@ class SignUpFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                } else {
-                    Snackbar.make(
-                        binding.root.rootView,
-                        getString(R.string.for_password_min_8_characters_with_atleast_one_number_special_characters_one_lowercase_letter_and_one_uppercase_letter_is_mandatory),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
                 }
             }
             fragmentSignUpTvLogin.setOnClickListener {

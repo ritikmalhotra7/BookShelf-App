@@ -82,7 +82,14 @@ class BookDetailFragment : Fragment() {
                     else fragmentBookDetailIvFav.imageTintList = ColorStateList.valueOf(Color.WHITE)
                 }
                 fragmentBookDetailIvFav.setOnClickListener {
-
+                    if (fragmentBookDetailIvFav.imageTintList == ColorStateList.valueOf(
+                            root.context.getColor(
+                                R.color.color01939A
+                            )
+                        )
+                    ) fragmentBookDetailIvFav.imageTintList = ColorStateList.valueOf(root.context.getColor(R.color._878787))
+                    else fragmentBookDetailIvFav.imageTintList =
+                        ColorStateList.valueOf(root.context.getColor(R.color.color01939A))
                 }
                 fragmentBookDetailIvBack.setOnClickListener {
                     findNavController().popBackStack()

@@ -1,7 +1,7 @@
 package com.example.bookshelf_app.feat_book_list.presentation.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +15,6 @@ import com.example.bookshelf_app.R
 import com.example.bookshelf_app.core.presentation.activities.MainActivity
 import com.example.bookshelf_app.core.utils.UserProvider
 import com.example.bookshelf_app.databinding.FragmentMainBookListBinding
-import com.example.bookshelf_app.feat_auth.domain.models.UserModel
 import com.example.bookshelf_app.feat_book_list.domain.models.BookModel
 import com.example.bookshelf_app.feat_book_list.presentation.adapters.BookAdapter
 import com.example.bookshelf_app.feat_book_list.presentation.viewmodels.BookViewModel
@@ -131,7 +130,7 @@ class MainBookListFragment : Fragment() {
                         updateBookListAccToSelectedToggleButton()
                     }
                 }
-                layoutManager = GridLayoutManager(requireContext(), 2)
+                layoutManager = GridLayoutManager(requireContext(),2)
             }
             lifecycleScope.launch {
                 //getting the data from view model

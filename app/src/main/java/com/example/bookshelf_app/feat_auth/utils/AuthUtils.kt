@@ -250,18 +250,27 @@ object AuthUtils {
         "Zimbabwe"
     )
 
-    fun validatePassword(password: String?): Boolean {
-        /*^               # start-of-string
-        (?=.*\d)          # a digit must occur at least once
-        (?=.*[a-z])       # a lower case letter must occur at least once
-        (?=.*[A-Z])       # an upper case letter must occur at least once
-        (?=.*[@#$%^&+=])  # a special character must occur at least once you can replace with your special characters
-        (?=\\S+$)         # no whitespace allowed in the entire string
-        .{8,}             # anything, at least eight places though
-        $                 # end-of-string*/
-        val PASSWORD_PATTERN = "(?=.*\\d)(?=.*[a-zA-Z])(?=.*[@#\$/%^&+=])(?=\\S+$).{8,}"
-        val pattern: Pattern = Pattern.compile(PASSWORD_PATTERN)
-        val matcher: Matcher = pattern.matcher(password)
-        return matcher.matches()
+    fun validatePassword(password: String): String? {
+        val PATTERN_FOR_A_DIGIT = "[0-9]"
+        val PATTERN_FOR_A_LOWER_CASE="[a-z]"
+        val PATTERN_FOR_A_UPPER_CASE="[A-Z]"
+        val PATTERN_FOR_A_SPECIAL_CHARACTER="[^a-zA-Z0-9 ]"
+
+        val patternLowerCase = Regex(PATTERN_FOR_A_LOWER_CASE)
+        if(!password.contains(patternLowerCase)) { return  "Password must contain at least one lowercase letter." }
+
+        val patternDigit = Regex(PATTERN_FOR_A_DIGIT)
+        if(!password.contains(patternDigit)) { return "Password must contain at least one digit." }
+
+        val patternUpperCase = Regex(PATTERN_FOR_A_UPPER_CASE)
+        if(!password.contains(patternUpperCase)) { return "Password must contain at least one uppercase letter." }
+
+        val patternSpecial = Regex(PATTERN_FOR_A_SPECIAL_CHARACTER)
+        if(!password.contains(patternSpecial)) { return "Password must contain at least one special character." }
+
+        if(password.length <=7) {return  "Password must be at least 8 characters long." }
+
+        return null
+
     }
 }
