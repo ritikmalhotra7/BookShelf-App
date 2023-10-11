@@ -75,7 +75,7 @@
             android:src="@drawable/iconmonstr_favorite_5"
             app:layout_constraintEnd_toEndOf="@id/fragment_book_detail_iv_book_bg"
             app:layout_constraintTop_toTopOf="@id/fragment_book_detail_iv_book_bg"
-            app:tint="@color/white" />
+            app:tint="@color/_878787" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/fragment_book_detail_tv_title"
